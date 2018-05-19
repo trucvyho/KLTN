@@ -147,7 +147,7 @@ class CustomCamera : AutoCloseable {
     companion object InstanceHolder {
         val IMAGE_WIDTH = 640
         val IMAGE_HEIGHT = 480
-        val MAX_IMAGES = 1
+        val MAX_IMAGES = 2//1
         val TAG = "CustomCamera"
         private val mCamera = CustomCamera()
 

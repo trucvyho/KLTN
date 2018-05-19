@@ -15,13 +15,23 @@ buildscript {
     }
 }
 
-allprojects {
+/*allprojects {
     repositories {
         google()
         jcenter()
     }
-}
+}*/
 
+allprojects {
+    // ...
+    repositories {
+        google()
+        jcenter()
+        maven {
+            url "https://maven.google.com" // Google's Maven repository
+        }
+    }
+}
 task clean(type: Delete) {
     delete rootProject.buildDir
 }

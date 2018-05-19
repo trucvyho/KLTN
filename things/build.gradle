@@ -24,7 +24,7 @@ android {
 }
 ext {
     archVersion = '1.0.0'
-    playServices = "11.6.2"
+    playServices = "11.8.0"//11.6.2
 }
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -42,6 +42,7 @@ dependencies {
     implementation "android.arch.lifecycle:extensions:${archVersion}"
     annotationProcessor "android.arch.lifecycle:compiler:${archVersion}"
     implementation "com.android.support:appcompat-v7:26.1.0"
+    compile 'com.firebase:firebase-client-android:2.5.2+'
 }
 
 apply plugin: 'com.google.gms.google-services'

@@ -16,6 +16,7 @@ class MotionSensingViewModel : ViewModel() {
     var armed = SingleLiveEvent<Boolean>()
     private var systemArmedFirebaseReference = FirebaseDatabase.getInstance().getReference(FIREBASE_ARM_SYSTEM_NODE)
 
+
     init {
         systemArmedFirebaseReference.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError?) {

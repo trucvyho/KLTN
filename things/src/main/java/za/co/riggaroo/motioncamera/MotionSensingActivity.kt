@@ -17,7 +17,7 @@ import za.co.riggaroo.motioncamera.camera.CustomCamera
 class MotionSensingActivity : AppCompatActivity(), MotionSensor.MotionListener {
 
     private lateinit var ledMotionIndicatorGpio: Gpio
-    private lateinit var ledArmedIndicatorGpio: Gpio
+   // private lateinit var ledArmedIndicatorGpio: Gpio
     private lateinit var camera: CustomCamera
     private lateinit var motionImageView: ImageView
     private lateinit var buttonArmSystem: Button
@@ -51,14 +51,14 @@ class MotionSensingActivity : AppCompatActivity(), MotionSensor.MotionListener {
         try {
             ledMotionIndicatorGpio = peripheralManagerService.openGpio(LED_GPIO_PIN)
             ledMotionIndicatorGpio.setDirection(Gpio.DIRECTION_OUT_INITIALLY_LOW)
-            ledArmedIndicatorGpio = peripheralManagerService.openGpio(LED_ARMED_INDICATOR_PIN)
-            ledArmedIndicatorGpio.setDirection(Gpio.DIRECTION_OUT_INITIALLY_LOW)
+          //  ledArmedIndicatorGpio = peripheralManagerService.openGpio(LED_ARMED_INDICATOR_PIN)
+          //  ledArmedIndicatorGpio.setDirection(Gpio.DIRECTION_OUT_INITIALLY_LOW)
         }catch (e:Exception){e.printStackTrace()}
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        ledArmedIndicatorGpio.close()
+       // ledArmedIndicatorGpio.close()
         ledMotionIndicatorGpio.close()
     }
 
@@ -76,7 +76,7 @@ class MotionSensingActivity : AppCompatActivity(), MotionSensor.MotionListener {
                 } else {
                     getString(R.string.arm_system)
                 }
-                ledArmedIndicatorGpio.value = armed
+         //       ledArmedIndicatorGpio.value = armed
             }
 
         })
@@ -109,7 +109,7 @@ class MotionSensingActivity : AppCompatActivity(), MotionSensor.MotionListener {
 
 
     companion object {
-        val LED_ARMED_INDICATOR_PIN: String = "BCM21"//GPIO6_IO15
+    //    val LED_ARMED_INDICATOR_PIN: String = "BCM21"//GPIO6_IO15
         val ACT_TAG: String = "MotionSensingActivity"
         val LED_GPIO_PIN = "BCM21"//GPIO6_IO14
         val MOTION_SENSOR_GPIO_PIN = "BCM27" //GPIO2_IO03
