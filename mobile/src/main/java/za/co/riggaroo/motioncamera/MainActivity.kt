@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity() {
         val armedValue = FirebaseDatabase.getInstance().getReference(SYSTEM_ARMED_STATUS_FIREBASE_REF)
 
         armSystemToggleButton.setOnCheckedChangeListener { _, checkedValue ->
+            Log.d(ACT_TAG, "onDataChange:" + checkedValue.toString())
             armedValue.setValue(checkedValue)
         }
 
@@ -40,6 +41,7 @@ class MainActivity : AppCompatActivity() {
                 Log.d(ACT_TAG, "onDataChange:" + dataSnapshot.toString())
                 val isArmed = dataSnapshot.value as Boolean
                 toggleUIState(isArmed)
+//                toggleUIState(true)
             }
 
             override fun onCancelled(p0: DatabaseError?) {

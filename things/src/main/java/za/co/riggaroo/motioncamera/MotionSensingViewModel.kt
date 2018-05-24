@@ -35,7 +35,9 @@ class MotionSensingViewModel : ViewModel() {
     }
 
     fun uploadMotionImage(imageBytes: Bitmap) {
+//        armed.value = true;
         armed.value?.let { isSystemArmed ->
+            Log.e(TAG,isSystemArmed.toString())
             if (isSystemArmed) {
                 val storageRef = FirebaseStorage.getInstance().getReference(FIREBASE_MOTION_REF)
                 val imageStorageRef = storageRef.child(FIREBASE_IMAGE_PREFIX + System.currentTimeMillis() + ".jpg")

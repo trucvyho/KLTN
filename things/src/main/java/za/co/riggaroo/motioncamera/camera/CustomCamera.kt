@@ -1,15 +1,14 @@
 package za.co.riggaroo.motioncamera.camera
 
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.ImageFormat
-import android.graphics.Matrix
+import android.graphics.*
 import android.hardware.camera2.*
 import android.hardware.camera2.CameraAccessException.CAMERA_ERROR
 import android.media.ImageReader
 import android.os.Handler
 import android.util.Log
+import android.graphics.ImageFormat
+
 
 
 class CustomCamera : AutoCloseable {
@@ -40,7 +39,11 @@ class CustomCamera : AutoCloseable {
 
         val id = camIds[0]
         mImageReader = ImageReader.newInstance(IMAGE_WIDTH, IMAGE_HEIGHT,
-                ImageFormat.JPEG, MAX_IMAGES)
+           ImageFormat.JPEG, MAX_IMAGES)
+
+        //mImageReader = ImageReader.newInstance(IMAGE_WIDTH, IMAGE_HEIGHT,
+          //     PixelFormat.RGB_565, MAX_IMAGES)
+
         imageCapturedListener = imageListener
         mImageReader?.setOnImageAvailableListener(imageAvailableListener, backgroundHandler)
         try {
@@ -52,12 +55,17 @@ class CustomCamera : AutoCloseable {
 
     private val imageAvailableListener = ImageReader.OnImageAvailableListener { reader ->
         val image = reader.acquireLatestImage()
+        Log.e(TAG, reader.toString() + " " + reader.width);
         val imageBuffer = image.planes[0].buffer
         val imageBytes = ByteArray(imageBuffer.remaining())
         imageBuffer.get(imageBytes)
-        image.close()
+        Log.e(TAG, imageBytes.size.toString() + " size");
+
+
         val bitmap = getBitmapFromByteArray(imageBytes)
+
         imageCapturedListener.onImageCaptured(bitmap)
+        image.close()
     }
 
 
@@ -73,6 +81,7 @@ class CustomCamera : AutoCloseable {
         val matrix = Matrix()
         //For some reason the bitmap is rotated the incorrect way
         matrix.postRotate(180f)
+
         return Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
     }
 
@@ -83,6 +92,7 @@ class CustomCamera : AutoCloseable {
         captureBuilder?.set(CaptureRequest.CONTROL_AE_MODE, CaptureRequest.CONTROL_AE_MODE_ON)
         captureBuilder?.set(CaptureRequest.CONTROL_AWB_MODE, CaptureRequest.CONTROL_AWB_MODE_AUTO)
         Log.d(TAG, "Session initialized.")
+
         mCaptureSession?.capture(captureBuilder?.build(), mCaptureCallback, null)
     }
 

@@ -3,9 +3,11 @@ package za.co.riggaroo.motioncamera
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.OnLifecycleEvent
+import com.google.android.gms.tasks.Task
 import com.google.android.things.pio.Gpio
 import com.google.android.things.pio.GpioCallback
 import com.google.android.things.pio.PeripheralManager
+import com.google.firebase.auth.AuthResult
 
 class MotionSensor(private val motionListener: MotionListener,
                    motionSensorPinNumber: String) : LifecycleObserver {
@@ -42,6 +44,7 @@ class MotionSensor(private val motionListener: MotionListener,
     interface MotionListener {
         fun onMotionDetected()
         fun onMotionStopped()
+        fun onComplete(task: Task<AuthResult>)
     }
 
 }
